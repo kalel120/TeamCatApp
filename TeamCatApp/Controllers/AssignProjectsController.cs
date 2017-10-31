@@ -17,7 +17,6 @@ namespace TeamCatApp.Controllers {
 
             var assignProjectViewModel = new AssignProjectViewModel {
                 Teams = _dbContext.Teams.ToList(),
-                Projects = _dbContext.Projects.ToList(),
                 Frequencies = _dbContext.Projects.Select(x => x.Frequency).Distinct().ToList()
             };
             return View(assignProjectViewModel);
@@ -26,6 +25,11 @@ namespace TeamCatApp.Controllers {
         public JsonResult GetUsersByTeamId(int teamId) {
             List<ApplicationUser> users = _dbContext.Users.Where(u => u.TeamId == teamId).ToList();
             return Json(users, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetProjectsByFrequency(string frequncy) {
+            List<Projects> projectsByFrequency = _dbContext.Projects.Where(p => p.Frequency == frequncy).ToList();
+            return Json(projectsByFrequency, JsonRequestBehavior.AllowGet);
         }
     }
 }

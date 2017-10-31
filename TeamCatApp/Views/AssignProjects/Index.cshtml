@@ -24,12 +24,12 @@
     
     <div class="form-group">
         @Html.LabelFor(vm => vm.Frequencies)
-        @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control" })
+        @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control", @id="ddlFrequencies" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(vm => vm.Project)
-        @Html.DropDownListFor(vm=>vm.Projects, new SelectList(Model.Projects, "Id","ProjectName"),"--SELECT PROJECT--", new {@class="form-control"})
+        @Html.DropDownListFor(vm=>vm.Projects, new SelectList(string.Empty, "Value","Text"),"--SELECT PROJECT--", new {@class="form-control", @id="ddlProjects"})
     </div>
 
     <div class="form-group">
@@ -48,12 +48,13 @@
 @section scripts {
     
     <script>
-        $(document).ready(function() {
-            $("#ddlTeams").change( function() {
+        $(document).ready(function () {
+            $("#ddlTeams").change(function () {
                 var teamId = $("#ddlTeams").val();
                 $("#ddlUsers").empty();
 
-                var json = { teamId: teamId }                
+                var json = { teamId: teamId }
+                console.log(json);
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("GetUsersByTeamId","AssignProjects")',
@@ -62,6 +63,25 @@
                     success: function (data) {
                         $.each(data, function (key, value) {
                             $("#ddlUsers").append('<option value=' + value.Id + '>' + value.UserName + '</option>');
+                        });
+                    }
+                });
+            });
+
+            // For populating frequency to project dropdownlist
+            $("#ddlFrequencies").change(function() {
+                var freqName = $("#ddlFrequencies").val();
+                $("#ddlProjects").empty();
+                var json = { frequncy: freqName }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetProjectsByFrequency","AssignProjects")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+                        $.each(data, function(key, value) {
+                            $("#ddlProjects").append('<option value='+value.ID+'>'+value.ProjectName+'</option>');
                         });
                     }
                 });
