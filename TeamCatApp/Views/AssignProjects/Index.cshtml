@@ -6,64 +6,80 @@
 }
 
 <h2>Assign Projects</h2>
-<form>
-    <div class="form-group">
-        @Html.LabelFor(vm => vm.Team)
-        @Html.DropDownListFor(vm => vm.Team, new SelectList(Model.Teams, "Id", "TeamName"), "--SELECT TEAM--", new { @class = "form-control", @id = "ddlTeams" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(vm => vm.Users)
-        @Html.DropDownListFor(vm => vm.Users, new SelectList(string.Empty, "Value", "Text"), "--SELECT EMPLOYEE--", new { @class = "form-control", @id = "ddlUsers" })
-    </div>
+<div class="form-group">
+    @Html.LabelFor(vm => vm.Team)
+    @Html.DropDownListFor(vm => vm.Team, new SelectList(Model.Teams, "Id", "TeamName"), "--SELECT TEAM--", new { @class = "form-control", @id = "ddlTeams" })
+</div>
 
-    <div clas="form-group">
-        @Html.LabelFor(vm => vm.Date)
-        @Html.TextBoxFor(vm => vm.Date, new { @class = "form-control" })
-    </div>
+<div class="form-group">
+    @Html.LabelFor(vm => vm.Users)
+    @Html.DropDownListFor(vm => vm.Users, new SelectList(string.Empty, "Value", "Text"), "--SELECT EMPLOYEE--", new { @class = "form-control", @id = "ddlUsers" })
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(vm => vm.Frequencies)
-        @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control", @id = "ddlFrequencies" })
-    </div>
+<div clas="form-group">
+    @Html.LabelFor(vm => vm.Date)
+    @Html.TextBoxFor(vm => vm.Date, new { @class = "form-control" })
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(vm => vm.Project)
-        @Html.DropDownListFor(vm => vm.Projects, new SelectList(string.Empty, "Value", "Text"), "--SELECT PROJECT--", new { @class = "form-control", @id = "ddlProjects" })
-    </div>
+<div class="form-group">
+    @Html.LabelFor(vm => vm.Frequencies)
+    @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control", @id = "ddlFrequencies" })
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(vm => vm.AssignedHour)
-        @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned-hour" })
-    </div>
+<div class="form-group">
+    @Html.LabelFor(vm => vm.Project)
+    @Html.DropDownListFor(vm => vm.Projects, new SelectList(string.Empty, "Value", "Text"), "--SELECT PROJECT--", new { @class = "form-control", @id = "ddlProjects" })
+</div>
 
-    <input type="button" id="add-data-in-view" class="btn btn-primary" value="Add">
+<div class="form-group">
+    @Html.LabelFor(vm => vm.AssignedHour)
+    @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned-hour" })
+</div>
 
-    <h2>GridView</h2>
-    <div class="panel-body">
-        <table id="assigned-projects-table" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Employee</th>
-                    <th>Projct Name</th>
-                    <th>Project Frequency</th>
-                    <th>Hours</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+<input type="button" id="add-data-in-view" class="btn btn-primary btn-sm" value="Add">
+
+<div class="panel-body">
+    <table id="assigned-projects-table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Projct Name</th>
+                <th>Project Frequency</th>
+                <th>Hours</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
 
-    <button class="btn btn-success" type="submit">Save</button>
-</form>
+<button class="btn btn-success btn-lg" type="submit">Save</button>
+
+
+@*table template*@
+<div id="table_template" style="display:none">
+    <table>
+        <tr class="row-template">
+            <td class="employee"></td>
+            <td class="project"></td>
+            <td class="frequency"></td>
+            <td class="hour"></td>
+            <td>
+                <input type="button" value="Delete" class="delete btn btn-danger" />
+                <input type="button" value="Modify" class="modify btn btn-warning" />
+            </td>
+        </tr>
+    </table>
+</div>
 
 
 @section scripts {
 
     <script>
-        $(document).ready(function () {
+        $(function () {
+            // For populating teams to employees dropdownlist
             $("#ddlTeams").change(function () {
                 var teamId = $("#ddlTeams").val();
                 $("#ddlUsers").empty();
@@ -102,52 +118,32 @@
             });
 
 
-            // Datatables
-            //$('#assigned-projects-table').DataTable();
-            function replyClick(clickedId) {
-                alert(clickedId);
-            }
-
-
+            // For rendering gridview/table
             $("#add-data-in-view").click(function () {
-                let selectedEmployee = $("#ddlUsers option:selected").text();
-                let selectedProject = $("#ddlProjects option:selected").text();
-                let selectedFrequency = $("#ddlFrequencies option:selected").text();
-                let assignedHour = $("#assigned-hour").val();
+                $gridView = $("#assigned-projects-table");
 
-                let table = document.getElementById("assigned-projects-table");
-                let row = table.insertRow(1);
+                let $selectedEmployee = $("#ddlUsers option:selected").text();
+                let $selectedProject = $("#ddlProjects option:selected").text();
+                let $selectedFrequency = $("#ddlFrequencies option:selected").text();
+                let $assignedHour = $("#assigned-hour").val();
 
-                let empCell = row.insertCell(0);
-                empCell.innerHTML = '<td>' + selectedEmployee + '</td>';
+                let $templateRow = $("#table_template").find(".row-template").clone();
 
-                let projectCell = row.insertCell(1);
-                projectCell.innerHTML = '<td>' + selectedProject + '</td>';
+                $templateRow.find(".employee").html($selectedEmployee);
+                $templateRow.find(".project").html($selectedProject);
+                $templateRow.find(".frequency").html($selectedFrequency);
+                $templateRow.find(".hour").html($assignedHour);
 
-                let freqCell = row.insertCell(2);
-                freqCell.innerHTML = '<td>' + selectedFrequency + '</td>';
+                $templateRow.find(".delete").click(function () {
+                    $templateRow.remove();
+                });
 
-                let hourCell = row.insertCell(3);
-                hourCell.innerHTML = '<td>' + assignedHour + '</td>';
+                $templateRow.find(".modify").click(function () {
+                    alert("Selected Entry Modified");
+                });
 
-                let actionCell = row.insertCell(4);
-                actionCell.innerHTML = '<td><input type="button" class="btn btn-primary" id="tbl-delete-btn" value="Delete"/> </td><input type="button" id="tbl-modify-btn" class="btn btn-primary"  value="Modify"/>';
+                $gridView.append($templateRow);
             });
-
-            // Event delegation for delete button button inside row
-            $(document).on("click", "#assigned-projects-table #tbl-delete-btn", function () {
-                alert('Row Deleted');
-            });
-
-            // Event delegation for delete button button inside row
-            $(document).on("click", "#assigned-projects-table #tbl-modify-btn", function () {
-                alert('Row Modified');
-            });
-
-
-
-
         });
     </script>
-
 }
