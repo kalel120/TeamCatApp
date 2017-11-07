@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using TeamCatApp.Models;
 using TeamCatApp.ViewModel;
+using System;
 
 namespace TeamCatApp.Controllers {
     public class AssignProjectsController : Controller {
@@ -34,8 +35,27 @@ namespace TeamCatApp.Controllers {
 
         // Test >> Submitting table rows to controller
         [HttpPost]
-        public JsonResult SaveAssignedProjects(List<AssignProjectViewModel> assignedProjects) {
-            return Json(assignedProjects, JsonRequestBehavior.AllowGet);
+        public ActionResult SaveAssignedProjects(List<AssignProjectViewModel> assignProjectsVm) {
+
+            var assignProjectList = new List<AssignedProjects>();
+            foreach (var item in assignProjectsVm) {
+
+                var assignProject = new AssignedProjects();
+                assignProject.AssignedHour = Convert.ToInt16(item.AssignedHour);
+
+                var specificProject = _dbContext.Projects.Where(p => p.ProjectName == item.ProjectName).Single();
+                assignProject.ProjectId = specificProject.Id;
+
+                var specificUser = _dbContext.Users.Where(u => u.UserName == item.EmployeeName).Single();
+                assignProject.UserId = specificUser.Id;
+
+                assignProject.AssignedDate = DateTime.Now;
+                assignProjectList.Add(assignProject);
+            }
+
+            _dbContext.AssignedProjects.AddRange(assignProjectList);
+            _dbContext.SaveChanges();
+            return View();
         }
     }
 }

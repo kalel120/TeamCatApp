@@ -151,7 +151,7 @@
                 // Get all the values of HTML table except header
                 $("#assigned-projects-table tr:not(:first)").each(function () {
                     let tableData = $(this).find("td");
-                    let assignProject = { EmployeeName: $(tableData[0]).html(), ProjectName: $(tableData[1]).html(), Frequency: $(tableData[2]).html(), AssignedHour: $(tableData[3]).html() }
+                    let assignProject = { EmployeeName: $(tableData[0]).text(), ProjectName: $(tableData[1]).text(), Frequency: $(tableData[2]).text(), AssignedHour: $(tableData[3]).text() }
                     assignedProjectList.push(assignProject);
                 });
                 
@@ -164,7 +164,7 @@
                     success: function (result) {
                         // Parse json, convert it to object
                         $($.parseJSON(result)).each(function (index,item) {
-                            alert(item.EmployeeName);
+                            console.log(item.EmployeeName);
                         });
                     },
                     error: function () {
