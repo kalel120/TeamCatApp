@@ -55,7 +55,7 @@
 </div>
 
 
-<input type="button" id="submit-assigned-projects"  class="btn btn-success btn-lg" value="Save"/>
+<input type="button" id="submit-assigned-projects" class="btn btn-success btn-lg" value="Save" />
 
 
 @*table template*@
@@ -146,6 +146,9 @@
 
             // Submitting assgined projects to controller
             $("#submit-assigned-projects").click(function () {
+                $listOfTaskUrl = '@Url.Action("Index", "ListOfAssignedProjects")';
+                $saveTaskUrl = '@Url.Action("SaveAssignedProjects", "AssignProjects")';
+
                 let assignedProjectList = new Array();
 
                 // Get all the values of HTML table except header
@@ -154,18 +157,16 @@
                     let assignProject = { EmployeeName: $(tableData[0]).text(), ProjectName: $(tableData[1]).text(), Frequency: $(tableData[2]).text(), AssignedHour: $(tableData[3]).text() }
                     assignedProjectList.push(assignProject);
                 });
-                
+
                 $.ajax({
-                    type:"POST",
-                    url: '@Url.Action("SaveAssignedProjects", "AssignProjects")',
+                    type: "POST",
+                    url: $saveTaskUrl,
                     dataType: "html",
                     data: JSON.stringify(assignedProjectList),
                     contentType: "application/json; charset=utf-8",
-                    success: function (result) {
-                        // Parse json, convert it to object
-                        $($.parseJSON(result)).each(function (index,item) {
-                            console.log(item.EmployeeName);
-                        });
+                    success: function () {
+                        alert("Saved Successfully");
+                        window.location.href = $listOfTaskUrl;
                     },
                     error: function () {
                         alert("Error happend");

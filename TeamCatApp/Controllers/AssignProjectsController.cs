@@ -35,7 +35,7 @@ namespace TeamCatApp.Controllers {
 
         // Test >> Submitting table rows to controller
         [HttpPost]
-        public ActionResult SaveAssignedProjects(List<AssignProjectViewModel> assignProjectsVm) {
+        public JsonResult SaveAssignedProjects(List<AssignProjectViewModel> assignProjectsVm) {
 
             var assignProjectList = new List<AssignedProjects>();
             foreach (var item in assignProjectsVm) {
@@ -55,7 +55,7 @@ namespace TeamCatApp.Controllers {
 
             _dbContext.AssignedProjects.AddRange(assignProjectList);
             _dbContext.SaveChanges();
-            return View();
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

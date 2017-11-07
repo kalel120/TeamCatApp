@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TeamCatApp.ViewModel.ListOfAssignedProjectViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Currently Assigned Projects to Employees</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectFrequency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedHour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedDate)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectFrequency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignedHour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignedDate)
+        </td>
+    </tr>
+}
+
+</table>
