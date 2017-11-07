@@ -31,5 +31,11 @@ namespace TeamCatApp.Controllers {
             List<Projects> projectsByFrequency = _dbContext.Projects.Where(p => p.Frequency == frequncy).ToList();
             return Json(projectsByFrequency, JsonRequestBehavior.AllowGet);
         }
+
+        // Test >> Submitting table rows to controller
+        [HttpPost]
+        public JsonResult SaveAssignedProjects(List<AssignProjectViewModel> assignedProjects) {
+            return Json(assignedProjects, JsonRequestBehavior.AllowGet);
+        }
     }
 }

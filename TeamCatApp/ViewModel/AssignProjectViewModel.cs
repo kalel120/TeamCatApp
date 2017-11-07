@@ -13,7 +13,11 @@ namespace TeamCatApp.ViewModel {
         public int Project { get; set; }
         public IEnumerable<Projects> Projects { get; set; }
         public IEnumerable<string> Frequencies { get; set; }
-        public int? AssignedHour { get; set; }
 
+        //Added for model binding
+        public string EmployeeName { get; set; }
+        public string ProjectName { get; set; }
+        public string AssignedHour { get; set; }
+        public string Frequency { get; set; }
     }
 }
