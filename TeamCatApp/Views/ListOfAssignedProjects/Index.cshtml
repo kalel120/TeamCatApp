@@ -25,24 +25,24 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectFrequency)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignedHour)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignedDate)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectFrequency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedHour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedDate)
+            </td>
+        </tr>
+    }
 
 </table>

@@ -34,7 +34,7 @@ namespace TeamCatApp.Controllers {
                 task.ProjectFrequency = specificProject.Frequency;
 
                 task.AssignedHour = item.AssignedHour.ToString();
-                task.AssignedDate = item.AssignedDate;
+                task.AssignedDate = item.AssignedDate.ToShortDateString();
 
                 assignedProjectsViewModel.Add(task);
             }

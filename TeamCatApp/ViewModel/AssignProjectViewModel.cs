@@ -17,6 +17,7 @@ namespace TeamCatApp.ViewModel {
         //Added for model binding
         public string EmployeeName { get; set; }
         public string ProjectName { get; set; }
+        public DateTime AssignedDate { get; set; }
         public string AssignedHour { get; set; }
         public string Frequency { get; set; }
     }

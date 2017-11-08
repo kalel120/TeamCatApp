@@ -46,6 +46,7 @@
                 <th>Employee</th>
                 <th>Projct Name</th>
                 <th>Project Frequency</th>
+                <th>Date</th>
                 <th>Hours</th>
                 <th>Action</th>
             </tr>
@@ -65,6 +66,7 @@
             <td class="employee"></td>
             <td class="project"></td>
             <td class="frequency"></td>
+            <td class="assignDate"></td>
             <td class="hour"></td>
             <td>
                 <input type="button" value="Modify" class="modify btn btn-warning" />
@@ -119,6 +121,9 @@
             // Datepicker
             $("#assign-date").datepicker({
                 showAnim: "drop",
+                showOn: "button",
+                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                buttonImageOnly:true,
                 showWeek: true,
                 changeMonth: true,
                 changeYear: true
@@ -130,6 +135,7 @@
 
                 let $selectedEmployee = $("#ddlUsers option:selected").text();
                 let $selectedProject = $("#ddlProjects option:selected").text();
+                let $selectedDate = $("#assign-date").val();
                 let $selectedFrequency = $("#ddlFrequencies option:selected").text();
                 let $assignedHour = $("#assigned-hour").val();
 
@@ -138,6 +144,7 @@
                 $templateRow.find(".employee").html($selectedEmployee);
                 $templateRow.find(".project").html($selectedProject);
                 $templateRow.find(".frequency").html($selectedFrequency);
+                $templateRow.find(".assignDate").html($selectedDate);
                 $templateRow.find(".hour").html($assignedHour);
 
                 $templateRow.find(".delete").click(function () {
@@ -161,7 +168,7 @@
                 // Get all the values of HTML table except header
                 $("#assigned-projects-table tr:not(:first)").each(function () {
                     let tableData = $(this).find("td");
-                    let assignProject = { EmployeeName: $(tableData[0]).text(), ProjectName: $(tableData[1]).text(), Frequency: $(tableData[2]).text(), AssignedHour: $(tableData[3]).text() }
+                    let assignProject = { EmployeeName: $(tableData[0]).text(), ProjectName: $(tableData[1]).text(), Frequency: $(tableData[2]).text(), AssignedDate: $(tableData[3]).text(), AssignedHour: $(tableData[4]).text() }
                     assignedProjectList.push(assignProject);
                 });
 

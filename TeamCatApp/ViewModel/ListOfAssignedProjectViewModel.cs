@@ -9,6 +9,6 @@ namespace TeamCatApp.ViewModel {
         public string ProjectName { get; set; }
         public string ProjectFrequency { get; set; }
         public string AssignedHour { get; set; }
-        public DateTime AssignedDate { get; set; }
+        public string AssignedDate { get; set; }
     }
 }

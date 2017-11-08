@@ -49,7 +49,7 @@ namespace TeamCatApp.Controllers {
                 var specificUser = _dbContext.Users.Where(u => u.UserName == item.EmployeeName).Single();
                 assignProject.UserId = specificUser.Id;
 
-                assignProject.AssignedDate = DateTime.Now;
+                assignProject.AssignedDate = item.AssignedDate;
                 assignProjectList.Add(assignProject);
             }
 
