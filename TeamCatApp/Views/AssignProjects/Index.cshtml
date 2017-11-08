@@ -8,8 +8,8 @@
 <h2>Assign Projects</h2>
 
 <div class="form-group">
-    @Html.LabelFor(vm => vm.Team)
-    @Html.DropDownListFor(vm => vm.Team, new SelectList(Model.Teams, "Id", "TeamName"), "--SELECT TEAM--", new { @class = "form-control", @id = "ddlTeams" })
+    @Html.LabelFor(vm => vm.Teams)
+    @Html.DropDownListFor(vm => vm.Teams, new SelectList(Model.Teams, "Id", "TeamName"), "--SELECT TEAM--", new { @class = "form-control", @id = "ddlTeams" })
 </div>
 
 <div class="form-group">
@@ -18,8 +18,8 @@
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(vm => vm.Date)
-    @Html.TextBoxFor(vm => vm.Date, new { @class = "form-control", @id = "assign-date", @placeholder="--PICK A DATE--" })
+    @Html.LabelFor(vm => vm.AssignedDate)
+    @Html.TextBoxFor(vm => vm.AssignedDate, new { @class = "form-control", @id = "assign-date", @placeholder="--PICK A DATE--" })
 </div>
 
 <div class="form-group">
@@ -28,7 +28,7 @@
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(vm => vm.Project)
+    @Html.LabelFor(vm => vm.Projects)
     @Html.DropDownListFor(vm => vm.Projects, new SelectList(string.Empty, "Value", "Text"), "--SELECT PROJECT--", new { @class = "form-control", @id = "ddlProjects" })
 </div>
 
