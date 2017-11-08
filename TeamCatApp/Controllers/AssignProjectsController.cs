@@ -41,7 +41,7 @@ namespace TeamCatApp.Controllers {
             foreach (var item in assignProjectsVm) {
 
                 var assignProject = new AssignedProjects();
-                assignProject.AssignedHour = Convert.ToInt16(item.AssignedHour);
+                assignProject.AssignedHour = item.AssignedHour;
 
                 var specificProject = _dbContext.Projects.Where(p => p.ProjectName == item.ProjectName).Single();
                 assignProject.ProjectId = specificProject.Id;
@@ -49,7 +49,7 @@ namespace TeamCatApp.Controllers {
                 var specificUser = _dbContext.Users.Where(u => u.UserName == item.EmployeeName).Single();
                 assignProject.UserId = specificUser.Id;
 
-                assignProject.AssignedDate = item.AssignedDate;
+                assignProject.AssignedDate = Convert.ToDateTime(item.AssignedDate);
                 assignProjectList.Add(assignProject);
             }
 
