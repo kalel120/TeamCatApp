@@ -30,6 +30,13 @@ namespace TeamCatApp {
 
             bundles.Add(new StyleBundle("~/Content/jQueryDatatables").Include(
                 "~/ContentDataTables/css/dataTables.bootstrap.css"));
+
+            //jQuery UI
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
+                "~/Scripts/jquery-ui-1.12.1.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/jqueryUI").Include(
+                "~/Content/themes/base/jquery-ui.min.css"));
         }
     }
 }

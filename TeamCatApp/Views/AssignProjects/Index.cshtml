@@ -17,9 +17,9 @@
     @Html.DropDownListFor(vm => vm.Users, new SelectList(string.Empty, "Value", "Text"), "--SELECT EMPLOYEE--", new { @class = "form-control", @id = "ddlUsers" })
 </div>
 
-<div clas="form-group">
+<div class="form-group">
     @Html.LabelFor(vm => vm.Date)
-    @Html.TextBoxFor(vm => vm.Date, new { @class = "form-control" })
+    @Html.TextBoxFor(vm => vm.Date, new { @class = "form-control", @id = "assign-date", @placeholder="--PICK A DATE--" })
 </div>
 
 <div class="form-group">
@@ -116,6 +116,13 @@
                 });
             });
 
+            // Datepicker
+            $("#assign-date").datepicker({
+                showAnim: "drop",
+                showWeek: true,
+                changeMonth: true,
+                changeYear: true
+            });
 
             // For rendering gridview/table
             $("#add-data-in-view").click(function () {
