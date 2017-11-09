@@ -140,6 +140,7 @@
             // For rendering gridview/table
             $("#add-data-in-view").click(function () {
                 let $form = $("#submit_form");
+
                 if ($form.valid()) {
                     $gridView = $("#assigned-projects-table");
 
@@ -157,12 +158,35 @@
                     $templateRow.find(".assignDate").html($selectedDate);
                     $templateRow.find(".hour").html($assignedHour);
 
+
+
+                    // Delete table row. 
                     $templateRow.find(".delete").click(function () {
                         $templateRow.remove();
                     });
 
                     $templateRow.find(".modify").click(function () {
-                        alert("Selected Entry Modified");
+                        alert("MOD");
+                    });
+
+                    // check duplication                     
+                    $("#assigned-projects-table tr:not(:first)").each(function () {
+                        var rowText = $(this).text();
+
+                        if (rowText === $templateRow.text()) {
+                            alert("Duplicate data");
+
+                            $templateRow.empty();
+
+                            $("#ddlTeams").prop('selectedIndex', 0);
+                            $("#ddlUsers").prop('selectedIndex', 0);
+                            $("#ddlProjects").prop('selectedIndex', 0);
+                            $("#ddlFrequencies").prop('selectedIndex', 0);
+                            $("#assigned_hour").val('');
+                            $("#assign-date").val('');
+
+                            return false;
+                        }
                     });
 
                     $gridView.append($templateRow);

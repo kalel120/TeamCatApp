@@ -28,6 +28,7 @@ namespace TeamCatApp.ViewModel {
         [Required(ErrorMessage = "This is required")]
         public string AssignedDate { get; set; }
 
+        [Display(Name = "Assign Hour")]
         [Range(1, 8, ErrorMessage = "Please enter hour between 0 to 8")]
         public int AssignedHour { get; set; }
 
