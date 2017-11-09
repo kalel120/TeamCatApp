@@ -143,7 +143,7 @@
                 let $form = $("#submit_form");
 
                 if ($form.valid()) {
-                    $gridView = $("#assigned-projects-table");
+                    let $gridView = $("#assigned-projects-table");
 
                     let $selectedEmployee = $("#ddlUsers option:selected").text();
                     let $selectedProject = $("#ddlProjects option:selected").text();
@@ -172,20 +172,12 @@
 
                     // check duplication                     
                     $("#assigned-projects-table tr:not(:first)").each(function () {
-                        var rowText = $(this).text();
+                        let rowText = $(this).text();
 
                         if (rowText === $templateRow.text()) {
                             alert("Duplicate data");
-
                             $templateRow.empty();
-
-                            $("#ddlTeams").prop('selectedIndex', 0);
-                            $("#ddlUsers").prop('selectedIndex', 0);
-                            $("#ddlProjects").prop('selectedIndex', 0);
-                            $("#ddlFrequencies").prop('selectedIndex', 0);
-                            $("#assigned_hour").val('');
-                            $("#assign-date").val('');
-
+                            ResetUiControls();
                             return false;
                         }
                     });
@@ -193,6 +185,15 @@
                     $gridView.append($templateRow);
                 }
             });
+
+            function ResetUiControls() {
+                $("#ddlTeams").prop('selectedIndex', 0);
+                $("#ddlUsers").prop('selectedIndex', 0);
+                $("#ddlProjects").prop('selectedIndex', 0);
+                $("#ddlFrequencies").prop('selectedIndex', 0);
+                $("#assigned_hour").val('');
+                $("#assign-date").val('');
+            }
 
             // Submitting assgined projects to controller
             $("#submit-assigned-projects").click(function () {
