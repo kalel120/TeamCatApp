@@ -41,7 +41,7 @@
 
     <div class="form-group">
         @Html.LabelFor(vm => vm.AssignedHour)
-        @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned_hour" })
+        @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned_hour"})
         @Html.ValidationMessageFor(vm => vm.AssignedHour, "", new { @class = "text-danger" })
     </div>
 
@@ -88,6 +88,9 @@
 @section scripts {
     <script>
         $(function () {
+            // Reset UI controls
+            ResetUiControls();
+
             // For populating teams to employees dropdownlist
             $("#ddlTeams").change(function () {
                 var teamId = $("#ddlTeams").val();
@@ -111,8 +114,8 @@
             $("#ddlFrequencies").change(function () {
                 var freqName = $("#ddlFrequencies").val();
                 $("#ddlProjects").empty();
-                var json = { frequncy: freqName }
 
+                var json = { frequncy: freqName }
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("GetProjectsByFrequency","AssignProjects")',
@@ -188,9 +191,14 @@
 
             function ResetUiControls() {
                 $("#ddlTeams").prop('selectedIndex', 0);
-                $("#ddlUsers").prop('selectedIndex', 0);
-                $("#ddlProjects").prop('selectedIndex', 0);
+
+                $("#ddlUsers").empty();
+                $("#ddlUsers").append('<option value=0> --SELECT EMPLOYEE--</option>');
+
                 $("#ddlFrequencies").prop('selectedIndex', 0);
+                $("#ddlProjects").empty();
+                $("#ddlProjects").append('<option value=0> --SELECT PROJECT--</option>');
+                
                 $("#assigned_hour").val('');
                 $("#assign-date").val('');
             }
@@ -207,7 +215,7 @@
 
                 //check if table is empty or not
                 let $tableBody = $("#assigned-projects-table tbody");
-                if ($tableBody.children().length == 0) {
+                if ($tableBody.children().length === 0) {
                     alert("Taks list if empty. Unable to save");
                     return false;
                 }
