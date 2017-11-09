@@ -41,7 +41,7 @@
 
     <div class="form-group">
         @Html.LabelFor(vm => vm.AssignedHour)
-        @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned_hour"})
+        @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned_hour" })
         @Html.ValidationMessageFor(vm => vm.AssignedHour, "", new { @class = "text-danger" })
     </div>
 
@@ -148,6 +148,10 @@
                 if ($form.valid()) {
                     let $gridView = $("#assigned-projects-table");
 
+                    // For modify button
+                    let $chosedTeamValue = $("#ddlTeams option:selected").val();
+                    let $chosedFreqValue = $("#ddlFrequencies option:selected").val();
+
                     let $selectedEmployee = $("#ddlUsers option:selected").text();
                     let $selectedProject = $("#ddlProjects option:selected").text();
                     let $selectedDate = $("#assign-date").val();
@@ -162,18 +166,21 @@
                     $templateRow.find(".assignDate").html($selectedDate);
                     $templateRow.find(".hour").html($assignedHour);
 
-
-
-                    // Delete table row. 
+                    // Delete table row.
                     $templateRow.find(".delete").click(function () {
                         $templateRow.remove();
                     });
 
                     $templateRow.find(".modify").click(function () {
-                        alert("MOD");
+                        ResetUiControls();
+                        $("#ddlTeams").val($chosedTeamValue);
+                        $("#ddlFrequencies").val($chosedFreqValue);
+                        $("#assign-date").val($selectedDate);
+                        $("#assigned_hour").val($assignedHour);
+                        $templateRow.remove();
                     });
 
-                    // check duplication                     
+                    // check duplication
                     $("#assigned-projects-table tr:not(:first)").each(function () {
                         let rowText = $(this).text();
 
@@ -198,7 +205,7 @@
                 $("#ddlFrequencies").prop('selectedIndex', 0);
                 $("#ddlProjects").empty();
                 $("#ddlProjects").append('<option value=0> --SELECT PROJECT--</option>');
-                
+
                 $("#assigned_hour").val('');
                 $("#assign-date").val('');
             }
@@ -211,7 +218,6 @@
                     alert("Fill up the form first");
                     return false;
                 }
-
 
                 //check if table is empty or not
                 let $tableBody = $("#assigned-projects-table tbody");
@@ -246,9 +252,9 @@
                         }
                         else {
                             alert("Saved Successfully");
-                            window.location.href = $listOfTaskUrl;    
+                            window.location.href = $listOfTaskUrl;
                         }
-                        
+
                     },
                     error: function () {
                         console.log("Error happend");
