@@ -211,8 +211,8 @@
                     return false;
                 }
 
-                $listOfTaskUrl = '@Url.Action("Index", "ListOfAssignedProjects")';
-                $saveTaskUrl = '@Url.Action("SaveAssignedProjects", "AssignProjects")';
+                const $listOfTaskUrl = '@Url.Action("Index", "ListOfAssignedProjects")';
+                const $saveTaskUrl = '@Url.Action("SaveAssignedProjects", "AssignProjects")';
 
                 let assignedProjectList = new Array();
 
@@ -230,8 +230,16 @@
                     data: JSON.stringify(assignedProjectList),
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
-                        alert("Saved Successfully");
-                        window.location.href = $listOfTaskUrl;
+                        if (!result) {
+                            console.log(result);
+                            alert("save failed. Possible duplicate task");
+                            return false;
+                        }
+                        else {
+                            alert("Saved Successfully");
+                            window.location.href = $listOfTaskUrl;    
+                        }
+                        
                     },
                     error: function () {
                         console.log("Error happend");

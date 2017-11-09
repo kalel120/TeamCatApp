@@ -42,20 +42,23 @@ namespace TeamCatApp.Controllers {
                 var assignProject = new AssignedProjects();
                 assignProject.AssignedHour = item.AssignedHour;
 
-                var specificProject = _dbContext.Projects.Where(p => p.ProjectName == item.ProjectName).Single();
+                var specificProject = _dbContext.Projects.Single(p => p.ProjectName == item.ProjectName);
                 assignProject.ProjectId = specificProject.Id;
 
-                var specificUser = _dbContext.Users.Where(u => u.UserName == item.EmployeeName).Single();
+                var specificUser = _dbContext.Users.Single(u => u.UserName == item.EmployeeName);
                 assignProject.UserId = specificUser.Id;
 
                 assignProject.AssignedDate = Convert.ToDateTime(item.AssignedDate);
                 assignProjectList.Add(assignProject);
-
-                _dbContext.AssignedProjects.AddRange(assignProjectList);
+            }
+            _dbContext.AssignedProjects.AddRange(assignProjectList);
+            try {
                 _dbContext.SaveChanges();
             }
-
-            return Json(JsonRequestBehavior.AllowGet);
+            catch (Exception) {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }
