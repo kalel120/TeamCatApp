@@ -134,7 +134,8 @@
                 buttonImageOnly: true,
                 showWeek: true,
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                dateFormat:"dd/mm/yy"
             });
 
             // For rendering gridview/table
@@ -195,6 +196,21 @@
 
             // Submitting assgined projects to controller
             $("#submit-assigned-projects").click(function () {
+                //check if the form is valid or not
+                let $form = $("#submit_form");
+                if (!$form.valid()) {
+                    alert("Fill up the form first");
+                    return false;
+                }
+
+
+                //check if table is empty or not
+                let $tableBody = $("#assigned-projects-table tbody");
+                if ($tableBody.children().length == 0) {
+                    alert("Taks list if empty. Unable to save");
+                    return false;
+                }
+
                 $listOfTaskUrl = '@Url.Action("Index", "ListOfAssignedProjects")';
                 $saveTaskUrl = '@Url.Action("SaveAssignedProjects", "AssignProjects")';
 
