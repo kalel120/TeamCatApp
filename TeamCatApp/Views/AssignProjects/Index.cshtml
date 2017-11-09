@@ -7,56 +7,64 @@
 
 <h2>Assign Projects</h2>
 
-<div class="form-group">
-    @Html.LabelFor(vm => vm.Teams)
-    @Html.DropDownListFor(vm => vm.Teams, new SelectList(Model.Teams, "Id", "TeamName"), "--SELECT TEAM--", new { @class = "form-control", @id = "ddlTeams" })
-</div>
 
-<div class="form-group">
-    @Html.LabelFor(vm => vm.Users)
-    @Html.DropDownListFor(vm => vm.Users, new SelectList(string.Empty, "Value", "Text"), "--SELECT EMPLOYEE--", new { @class = "form-control", @id = "ddlUsers" })
-</div>
+<form id="submit_form">
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.Teams)
+        @Html.DropDownListFor(vm => vm.Teams, new SelectList(Model.Teams, "Id", "TeamName"), "--SELECT TEAM--", new { @class = "form-control", @id = "ddlTeams" })
+        @Html.ValidationMessageFor(vm => vm.Teams, "", new { @class = "text-danger" })
+    </div>
 
-<div class="form-group">
-    @Html.LabelFor(vm => vm.AssignedDate)
-    @Html.TextBoxFor(vm => vm.AssignedDate, new { @class = "form-control", @id = "assign-date", @placeholder="--PICK A DATE--" })
-</div>
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.Users)
+        @Html.DropDownListFor(vm => vm.Users, new SelectList(string.Empty, "Value", "Text"), "--SELECT EMPLOYEE--", new { @class = "form-control", @id = "ddlUsers" })
+        @Html.ValidationMessageFor(vm => vm.Users, "", new { @class = "text-danger" })
+    </div>
 
-<div class="form-group">
-    @Html.LabelFor(vm => vm.Frequencies)
-    @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control", @id = "ddlFrequencies" })
-</div>
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.AssignedDate)
+        @Html.TextBoxFor(vm => vm.AssignedDate, new { @class = "form-control", @id = "assign-date", @placeholder = "--PICK A DATE--" })
+        @Html.ValidationMessageFor(vm => vm.AssignedDate, "", new { @class = "text-danger" })
+    </div>
 
-<div class="form-group">
-    @Html.LabelFor(vm => vm.Projects)
-    @Html.DropDownListFor(vm => vm.Projects, new SelectList(string.Empty, "Value", "Text"), "--SELECT PROJECT--", new { @class = "form-control", @id = "ddlProjects" })
-</div>
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.Frequencies)
+        @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control", @id = "ddlFrequencies" })
+        @Html.ValidationMessageFor(vm => vm.Frequencies, "", new { @class = "text-danger" })
+    </div>
 
-<div class="form-group">
-    @Html.LabelFor(vm => vm.AssignedHour)
-    @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned-hour" })
-</div>
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.Projects)
+        @Html.DropDownListFor(vm => vm.Projects, new SelectList(string.Empty, "Value", "Text"), "--SELECT PROJECT--", new { @class = "form-control", @id = "ddlProjects" })
+        @Html.ValidationMessageFor(vm => vm.Projects, "", new { @class = "text-danger" })
+    </div>
 
-<input type="button" id="add-data-in-view" class="btn btn-primary btn-sm" value="Add">
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.AssignedHour)
+        @Html.TextBoxFor(vm => vm.AssignedHour, new { @class = "form-control", @id = "assigned_hour" })
+        @Html.ValidationMessageFor(vm => vm.AssignedHour, "", new { @class = "text-danger" })
+    </div>
 
-<div class="panel-body">
-    <table id="assigned-projects-table" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Employee</th>
-                <th>Projct Name</th>
-                <th>Project Frequency</th>
-                <th>Date</th>
-                <th>Hours</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
+    <input type="button" id="add-data-in-view" class="btn btn-primary btn-sm" value="Add">
 
+    <div class="panel-body">
+        <table id="assigned-projects-table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Projct Name</th>
+                    <th>Project Frequency</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <input type="button" id="submit-assigned-projects" class="btn btn-success btn-lg" value="Save" />
+</form>
 
-<input type="button" id="submit-assigned-projects" class="btn btn-success btn-lg" value="Save" />
 
 
 @*table template*@
@@ -123,7 +131,7 @@
                 showAnim: "drop",
                 showOn: "button",
                 buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-                buttonImageOnly:true,
+                buttonImageOnly: true,
                 showWeek: true,
                 changeMonth: true,
                 changeYear: true
@@ -131,31 +139,34 @@
 
             // For rendering gridview/table
             $("#add-data-in-view").click(function () {
-                $gridView = $("#assigned-projects-table");
+                let $form = $("#submit_form");
+                if ($form.valid()) {
+                    $gridView = $("#assigned-projects-table");
 
-                let $selectedEmployee = $("#ddlUsers option:selected").text();
-                let $selectedProject = $("#ddlProjects option:selected").text();
-                let $selectedDate = $("#assign-date").val();
-                let $selectedFrequency = $("#ddlFrequencies option:selected").text();
-                let $assignedHour = $("#assigned-hour").val();
+                    let $selectedEmployee = $("#ddlUsers option:selected").text();
+                    let $selectedProject = $("#ddlProjects option:selected").text();
+                    let $selectedDate = $("#assign-date").val();
+                    let $selectedFrequency = $("#ddlFrequencies option:selected").text();
+                    let $assignedHour = $("#assigned_hour").val();
 
-                let $templateRow = $("#table_template").find(".row-template").clone();
+                    let $templateRow = $("#table_template").find(".row-template").clone();
 
-                $templateRow.find(".employee").html($selectedEmployee);
-                $templateRow.find(".project").html($selectedProject);
-                $templateRow.find(".frequency").html($selectedFrequency);
-                $templateRow.find(".assignDate").html($selectedDate);
-                $templateRow.find(".hour").html($assignedHour);
+                    $templateRow.find(".employee").html($selectedEmployee);
+                    $templateRow.find(".project").html($selectedProject);
+                    $templateRow.find(".frequency").html($selectedFrequency);
+                    $templateRow.find(".assignDate").html($selectedDate);
+                    $templateRow.find(".hour").html($assignedHour);
 
-                $templateRow.find(".delete").click(function () {
-                    $templateRow.remove();
-                });
+                    $templateRow.find(".delete").click(function () {
+                        $templateRow.remove();
+                    });
 
-                $templateRow.find(".modify").click(function () {
-                    alert("Selected Entry Modified");
-                });
+                    $templateRow.find(".modify").click(function () {
+                        alert("Selected Entry Modified");
+                    });
 
-                $gridView.append($templateRow);
+                    $gridView.append($templateRow);
+                }
             });
 
             // Submitting assgined projects to controller
@@ -175,19 +186,18 @@
                 $.ajax({
                     type: "POST",
                     url: $saveTaskUrl,
-                    dataType: "html",
+                    dataType: "json",
                     data: JSON.stringify(assignedProjectList),
                     contentType: "application/json; charset=utf-8",
-                    success: function () {
+                    success: function (result) {
                         alert("Saved Successfully");
                         window.location.href = $listOfTaskUrl;
                     },
                     error: function () {
-                        alert("Error happend");
+                        console.log("Error happend");
                     }
                 });
             });
         });
     </script>
 }
-

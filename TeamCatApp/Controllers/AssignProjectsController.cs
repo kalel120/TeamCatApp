@@ -15,7 +15,6 @@ namespace TeamCatApp.Controllers {
         }
 
         public ActionResult Index() {
-
             var assignProjectViewModel = new AssignProjectViewModel {
                 Teams = _dbContext.Teams.ToList(),
                 Frequencies = _dbContext.Projects.Select(x => x.Frequency).Distinct().ToList()
@@ -51,10 +50,11 @@ namespace TeamCatApp.Controllers {
 
                 assignProject.AssignedDate = Convert.ToDateTime(item.AssignedDate);
                 assignProjectList.Add(assignProject);
+
+                _dbContext.AssignedProjects.AddRange(assignProjectList);
+                _dbContext.SaveChanges();
             }
 
-            _dbContext.AssignedProjects.AddRange(assignProjectList);
-            _dbContext.SaveChanges();
             return Json(JsonRequestBehavior.AllowGet);
         }
     }
