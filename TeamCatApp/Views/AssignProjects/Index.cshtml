@@ -89,11 +89,11 @@
     <script>
         $(function () {
             // Reset UI controls
-            ResetUiControls();
+            resetUiControls();
 
             // For populating teams to employees dropdownlist
             $("#ddlTeams").change(function () {
-                var teamId = $("#ddlTeams").val();
+                let teamId = $("#ddlTeams").val();
                 $("#ddlUsers").empty();
 
                 var json = { teamId: teamId }
@@ -103,6 +103,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (data) {
+                        $("#ddlUsers").append('<option value=> --SELECT EMPLOYEE--</option>');
                         $.each(data, function (key, value) {
                             $("#ddlUsers").append('<option value=' + value.Id + '>' + value.UserName + '</option>');
                         });
@@ -112,7 +113,7 @@
 
             // For populating frequency to project dropdownlist
             $("#ddlFrequencies").change(function () {
-                var freqName = $("#ddlFrequencies").val();
+                let freqName = $("#ddlFrequencies").val();
                 $("#ddlProjects").empty();
 
                 var json = { frequncy: freqName }
@@ -122,6 +123,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (data) {
+                        $("#ddlProjects").append('<option value=> --SELECT PROJECT--</option>');
                         $.each(data, function (key, value) {
                             $("#ddlProjects").append('<option value=' + value.ID + '>' + value.ProjectName + '</option>');
                         });
@@ -172,7 +174,7 @@
                     });
 
                     $templateRow.find(".modify").click(function () {
-                        ResetUiControls();
+                        resetUiControls();
                         $("#ddlTeams").val($chosedTeamValue);
                         $("#ddlFrequencies").val($chosedFreqValue);
                         $("#assign-date").val($selectedDate);
@@ -187,7 +189,7 @@
                         if (rowText === $templateRow.text()) {
                             alert("Duplicate data");
                             $templateRow.empty();
-                            ResetUiControls();
+                            resetUiControls();
                             return false;
                         }
                     });
@@ -196,15 +198,13 @@
                 }
             });
 
-            function ResetUiControls() {
+            function resetUiControls() {
+                $("#ddlTeams").trigger('change');
                 $("#ddlTeams").prop('selectedIndex', 0);
 
-                $("#ddlUsers").empty();
-                $("#ddlUsers").append('<option value=0> --SELECT EMPLOYEE--</option>');
 
+                $("#ddlFrequencies").trigger('change');
                 $("#ddlFrequencies").prop('selectedIndex', 0);
-                $("#ddlProjects").empty();
-                $("#ddlProjects").append('<option value=0> --SELECT PROJECT--</option>');
 
                 $("#assigned_hour").val('');
                 $("#assign-date").val('');
