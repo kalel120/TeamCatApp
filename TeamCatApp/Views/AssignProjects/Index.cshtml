@@ -94,6 +94,10 @@
             // For populating teams to employees dropdownlist
             $("#ddlTeams").change(function () {
                 let teamId = $("#ddlTeams").val();
+                if (teamId === "") {
+                    return false;
+                }
+
                 $("#ddlUsers").empty();
 
                 var json = { teamId: teamId }
@@ -114,6 +118,10 @@
             // For populating frequency to project dropdownlist
             $("#ddlFrequencies").change(function () {
                 let freqName = $("#ddlFrequencies").val();
+                if (freqName == null) {
+                    return false;
+                }
+
                 $("#ddlProjects").empty();
 
                 var json = { frequncy: freqName }
