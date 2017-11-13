@@ -6,7 +6,7 @@
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" hre="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@2.2.1/src/messagebox.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@2.2.1/src/messagebox.css">
 
 <h2>Assign Projects</h2>
 
@@ -213,18 +213,26 @@
                     }));
 
                     // check duplication
-                    $("#assigned-projects-table tr:not(:first)").each(function () {
-                        let rowText = $(this).text();
-
-                        if (rowText === $templateRow.text()) {
-                            $.MessageBox("Duplicate Data");
-                            $templateRow.empty();
-                            resetUiControls();
-                            return false;
-                        }
-                    });
-
-                    $gridView.append($templateRow);
+                    let $rowCount = $('#assigned-projects-table tr').length;
+                    if ($rowCount === 1) {
+                        $gridView.append($templateRow);
+                        $.MessageBox("Record Inserted");
+                    }
+                    else {
+                        $("#assigned-projects-table tr:not(:first)").each(function () {
+                            let rowText = $(this).text();
+                            if (rowText === $templateRow.text()) {
+                                $.MessageBox("Duplicate Data");
+                                $templateRow.empty();
+                                resetUiControls();
+                                return false;
+                            }
+                            else {
+                                $gridView.append($templateRow);
+                                $.MessageBox("Record Inserted");
+                            }
+                        });
+                    }           
                 }
             });
 
