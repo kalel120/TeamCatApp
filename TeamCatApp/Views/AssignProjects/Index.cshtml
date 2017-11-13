@@ -7,7 +7,6 @@
 
 <h2>Assign Projects</h2>
 
-
 <form id="submit_form">
     <div class="form-group">
         @Html.LabelFor(vm => vm.Teams)
@@ -84,8 +83,14 @@
     </table>
 </div>
 
+@*save loading animation*@
+<div class="modal"></div>
 
 @section scripts {
+    
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/src/loadingoverlay.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/extras/loadingoverlay_progress/loadingoverlay_progress.min.js"></script>
+    
     <script>
         $(function () {
             // Reset UI controls
@@ -183,7 +188,7 @@
                     $templateRow.find(".hour").html($assignedHour);
 
                     // Delete table row.
-                    $templateRow.find(".delete").on('click',(function () {
+                    $templateRow.find(".delete").on('click', (function () {
                         $templateRow.remove();
                     }));
 
@@ -218,12 +223,12 @@
 
                     $gridView.append($templateRow);
                 }
-            });           
+            });
 
             function resetUiControls() {
                 $("#ddlTeams").prop('selectedIndex', 0);
 
-                $("#ddlFrequencies").prop('selectedIndex', 0);                
+                $("#ddlFrequencies").prop('selectedIndex', 0);
 
                 $("#ddlUsers").empty();
                 $("#ddlProjects").empty();
@@ -231,6 +236,13 @@
                 $("#assigned_hour").val('');
                 $("#assign-date").val('');
             }
+
+            $(document).ajaxSend(function (event, jqxhr, settings) {
+                $.LoadingOverlay("show");
+            });
+            $(document).ajaxComplete(function (event, jqxhr, settings) {
+                $.LoadingOverlay("hide");
+            });
 
             // Submitting assgined projects to controller
             $("#submit-assigned-projects").click(function () {
@@ -260,12 +272,14 @@
                     assignedProjectList.push(assignProject);
                 });
 
+                let $body = $("body");
+
                 $.ajax({
                     type: "POST",
                     url: $saveTaskUrl,
                     dataType: "json",
                     data: JSON.stringify(assignedProjectList),
-                    contentType: "application/json; charset=utf-8",
+                    contentType: "application/json; charset=utf-8",                    
                     success: function (result) {
                         if (!result) {
                             console.log(result);
