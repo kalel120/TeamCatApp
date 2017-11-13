@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" hre="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@2.2.1/src/messagebox.css">
+
 <h2>Assign Projects</h2>
 
 <form id="submit_form">
@@ -87,13 +90,13 @@
 <div class="modal"></div>
 
 @section scripts {
-    
+
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/src/loadingoverlay.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/extras/loadingoverlay_progress/loadingoverlay_progress.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@2.2.1/src/messagebox.min.js"></script>
+
     <script>
         $(function () {
-            // Reset UI controls
             resetUiControls();
 
             // For populating teams to employees dropdownlist
@@ -214,7 +217,7 @@
                         let rowText = $(this).text();
 
                         if (rowText === $templateRow.text()) {
-                            alert("Duplicate data");
+                            $.MessageBox("Duplicate Data");
                             $templateRow.empty();
                             resetUiControls();
                             return false;
@@ -225,6 +228,7 @@
                 }
             });
 
+            // Reset UI controls
             function resetUiControls() {
                 $("#ddlTeams").prop('selectedIndex', 0);
 
@@ -237,7 +241,18 @@
                 $("#assign-date").val('');
             }
 
+            // overlay loader
             $(document).ajaxSend(function (event, jqxhr, settings) {
+                $.LoadingOverlaySetup({
+                    color: "rgba(0, 0, 0, .5)",
+                    image: "",
+                    maxSize: "80px",
+                    minSize: "20px",
+                    resizeInterval: 0,
+                    size: "50%",
+                    fontawesome: "fa fa-circle-o-notch fa-spin"
+                });
+
                 $.LoadingOverlay("show");
             });
             $(document).ajaxComplete(function (event, jqxhr, settings) {
@@ -249,7 +264,7 @@
                 //check if the form is valid or not
                 let $form = $("#submit_form");
                 if (!$form.valid()) {
-                    alert("Fill up the form first");
+                    $.MessageBox("Fill up the form first");
                     return false;
                 }
 
@@ -279,21 +294,21 @@
                     url: $saveTaskUrl,
                     dataType: "json",
                     data: JSON.stringify(assignedProjectList),
-                    contentType: "application/json; charset=utf-8",                    
+                    contentType: "application/json; charset=utf-8",
                     success: function (result) {
                         if (!result) {
                             console.log(result);
-                            alert("save failed. Possible duplicate task");
+                            $.MessageBox("Save failed. Possible duplicate task");
                             return false;
                         }
                         else {
-                            alert("Saved Successfully");
+                            $.MessageBox("Saved!!");
                             window.location.href = $listOfTaskUrl;
                         }
 
                     },
                     error: function () {
-                        console.log("Error happend");
+                        $.MessageBox("Some Error Happend");
                     }
                 });
             });
