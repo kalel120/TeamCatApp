@@ -271,7 +271,7 @@
                 //check if table is empty or not
                 let $tableBody = $("#assigned-projects-table tbody");
                 if ($tableBody.children().length === 0) {
-                    alert("Taks list if empty. Unable to save");
+                    $.MessageBox("Taks list if empty. Unable to save");
                     return false;
                 }
 
