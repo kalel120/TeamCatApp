@@ -93,12 +93,15 @@
 
             // For populating teams to employees dropdownlist
             $("#ddlTeams").change(function () {
-                let teamId = $("#ddlTeams").val();
+                let $ddlTeams = $("#ddlTeams");
+                let $ddlUsers = $("#ddlUsers");
+
+                let teamId = $ddlTeams.val();
                 if (teamId === "") {
                     return false;
                 }
 
-                $("#ddlUsers").empty();
+                $ddlUsers.empty();
 
                 var json = { teamId: teamId }
                 $.ajax({
@@ -107,9 +110,9 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (data) {
-                        $("#ddlUsers").append('<option value=> --SELECT EMPLOYEE--</option>');
+                        $ddlUsers.append('<option value=> --SELECT EMPLOYEE--</option>');
                         $.each(data, function (key, value) {
-                            $("#ddlUsers").append('<option value=' + value.Id + '>' + value.UserName + '</option>');
+                            $ddlUsers.append('<option value=' + value.Id + '>' + value.UserName + '</option>');
                         });
                     }
                 });
@@ -117,12 +120,15 @@
 
             // For populating frequency to project dropdownlist
             $("#ddlFrequencies").change(function () {
-                let freqName = $("#ddlFrequencies").val();
+                let $ddlFrequencies = $("#ddlFrequencies");
+                let $ddlProjects = $("#ddlProjects");
+
+                let freqName = $ddlFrequencies.val();
                 if (freqName == null) {
                     return false;
                 }
 
-                $("#ddlProjects").empty();
+                $ddlProjects.empty();
 
                 var json = { frequncy: freqName }
                 $.ajax({
@@ -131,9 +137,9 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (data) {
-                        $("#ddlProjects").append('<option value=> --SELECT PROJECT--</option>');
+                        $ddlProjects.append('<option value=> --SELECT PROJECT--</option>');
                         $.each(data, function (key, value) {
-                            $("#ddlProjects").append('<option value=' + value.ID + '>' + value.ProjectName + '</option>');
+                            $ddlProjects.append('<option value=' + value.ID + '>' + value.ProjectName + '</option>');
                         });
                     }
                 });
@@ -183,12 +189,15 @@
 
                     // Modify table row
                     $templateRow.find(".modify").on('click', (function () {
-                        resetUiControls();
-                        $("#ddlTeams").val($chosedTeamValue);
-                        $("#ddlTeams").trigger('change');
+                        let $ddlTeams = $("#ddlTeams");
+                        let $ddlFrequencies = $("#ddlFrequencies");
 
-                        $("#ddlFrequencies").val($chosedFreqValue);
-                        $("#ddlFrequencies").trigger('change');
+                        resetUiControls();
+                        $ddlTeams.val($chosedTeamValue);
+                        $ddlTeams.trigger('change');
+
+                        $ddlFrequencies.val($chosedFreqValue);
+                        $ddlFrequencies.trigger('change');
 
                         $("#assign-date").val($selectedDate);
                         $("#assigned_hour").val($assignedHour);
@@ -213,10 +222,8 @@
 
             function resetUiControls() {
                 $("#ddlTeams").prop('selectedIndex', 0);
-                //$("#ddlTeams").trigger('change');
 
-                $("#ddlFrequencies").prop('selectedIndex', 0);
-                //$("#ddlFrequencies").trigger('change');
+                $("#ddlFrequencies").prop('selectedIndex', 0);                
 
                 $("#ddlUsers").empty();
                 $("#ddlProjects").empty();
