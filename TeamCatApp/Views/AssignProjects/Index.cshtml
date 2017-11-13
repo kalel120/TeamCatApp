@@ -148,7 +148,7 @@
                 showWeek: true,
                 changeMonth: true,
                 changeYear: true,
-                dateFormat:"dd/mm/yy"
+                dateFormat: "dd/mm/yy"
             });
 
             // For rendering gridview/table
@@ -177,12 +177,12 @@
                     $templateRow.find(".hour").html($assignedHour);
 
                     // Delete table row.
-                    $templateRow.find(".delete").click(function () {
+                    $templateRow.find(".delete").on('click',(function () {
                         $templateRow.remove();
-                    });
+                    }));
 
                     // Modify table row
-                    $templateRow.find(".modify").click(function () {
+                    $templateRow.find(".modify").on('click', (function () {
                         resetUiControls();
                         $("#ddlTeams").val($chosedTeamValue);
                         $("#ddlTeams").trigger('change');
@@ -193,7 +193,7 @@
                         $("#assign-date").val($selectedDate);
                         $("#assigned_hour").val($assignedHour);
                         $templateRow.remove();
-                    });
+                    }));
 
                     // check duplication
                     $("#assigned-projects-table tr:not(:first)").each(function () {
@@ -209,12 +209,12 @@
 
                     $gridView.append($templateRow);
                 }
-            });
+            });           
 
-            function resetUiControls() {                
+            function resetUiControls() {
                 $("#ddlTeams").prop('selectedIndex', 0);
                 //$("#ddlTeams").trigger('change');
-                
+
                 $("#ddlFrequencies").prop('selectedIndex', 0);
                 //$("#ddlFrequencies").trigger('change');
 
