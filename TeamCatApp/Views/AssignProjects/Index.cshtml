@@ -181,10 +181,15 @@
                         $templateRow.remove();
                     });
 
+                    // Modify table row
                     $templateRow.find(".modify").click(function () {
                         resetUiControls();
                         $("#ddlTeams").val($chosedTeamValue);
+                        $("#ddlTeams").trigger('change');
+
                         $("#ddlFrequencies").val($chosedFreqValue);
+                        $("#ddlFrequencies").trigger('change');
+
                         $("#assign-date").val($selectedDate);
                         $("#assigned_hour").val($assignedHour);
                         $templateRow.remove();
@@ -206,13 +211,15 @@
                 }
             });
 
-            function resetUiControls() {
-                $("#ddlTeams").trigger('change');
+            function resetUiControls() {                
                 $("#ddlTeams").prop('selectedIndex', 0);
-
-
-                $("#ddlFrequencies").trigger('change');
+                //$("#ddlTeams").trigger('change');
+                
                 $("#ddlFrequencies").prop('selectedIndex', 0);
+                //$("#ddlFrequencies").trigger('change');
+
+                $("#ddlUsers").empty();
+                $("#ddlProjects").empty();
 
                 $("#assigned_hour").val('');
                 $("#assign-date").val('');
