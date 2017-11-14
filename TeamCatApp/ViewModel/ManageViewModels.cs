@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace TeamCatApp.Models
+namespace TeamCatApp.ViewModel
 {
     public class IndexViewModel
     {

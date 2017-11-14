@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TeamCatApp.Models
+namespace TeamCatApp.ViewModel
 {
     public class ExternalLoginConfirmationViewModel
     {

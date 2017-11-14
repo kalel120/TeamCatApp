@@ -1,5 +1,4 @@
-﻿using System;
-using TeamCatApp.Models;
+﻿using TeamCatApp.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,8 +15,8 @@ namespace TeamCatApp.ViewModel {
         [Required(ErrorMessage = "* Project Selection is required")]
         public IEnumerable<Projects> Projects { get; set; }
 
-        [Display(Name = "* Select Project Frequency")]
-        [Required(ErrorMessage = "This is required")]
+        [Display(Name = "Project Fequency")]
+        [Required(ErrorMessage = "* Select Project Frequency")]
         public IEnumerable<string> Frequencies { get; set; }
 
         //Added for model binding
@@ -28,8 +27,8 @@ namespace TeamCatApp.ViewModel {
         [Required(ErrorMessage = "* Select a date ")]
         public string AssignedDate { get; set; }
 
-        [Display(Name = "Assign Hour")]
-        [Range(1, 8, ErrorMessage = "Please enter hours between [0 8]")]
+        [Display(Name = "Hour")]
+        [Range(1, 8, ErrorMessage = "Enter hours between [0 - 8]")]
         public int AssignedHour { get; set; }
 
         public string Frequency { get; set; }

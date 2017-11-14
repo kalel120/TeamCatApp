@@ -217,11 +217,11 @@
       <DependentUpon>201710291632223_FixTeamRelation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\AssignedProjects.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="Models\Projects.cs" />
     <Compile Include="Models\Teams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

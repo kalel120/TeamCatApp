@@ -31,7 +31,7 @@
 
     <div class="form-group">
         @Html.LabelFor(vm => vm.Frequencies)
-        @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY", new { @class = "form-control", @id = "ddlFrequencies" })
+        @Html.DropDownListFor(vm => vm.Frequencies, new SelectList(Model.Frequencies, "Frequncy"), "--SELECT PROJECT FREQUENCY--", new { @class = "form-control", @id = "ddlFrequencies" })
         @Html.ValidationMessageFor(vm => vm.Frequencies, "", new { @class = "text-danger" })
     </div>
 

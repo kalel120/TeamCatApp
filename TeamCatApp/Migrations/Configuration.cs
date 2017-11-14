@@ -1,8 +1,5 @@
 namespace TeamCatApp.Migrations {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TeamCatApp.Models.ApplicationDbContext> {
         public Configuration() {
