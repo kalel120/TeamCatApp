@@ -25,7 +25,7 @@
 
     <div class="form-group">
         @Html.LabelFor(vm => vm.AssignedDate)
-        @Html.TextBoxFor(vm => vm.AssignedDate, new { @class = "form-control", @id = "assign-date", @placeholder = "--DATE--" })
+        @Html.TextBoxFor(vm => vm.AssignedDate, new { @class = "form-control", @id = "assign-date", @placeholder = "Date" })
         @Html.ValidationMessageFor(vm => vm.AssignedDate, "", new { @class = "text-danger" })
     </div>
 
@@ -49,6 +49,7 @@
 
     <div class="form-group">
         <input type="button" id="add-data-in-view" class="btn btn-primary btn-sm" value="Add">
+        <input type="button" id="clear-ui-controls" class="btn btn-danger btn-sm" value="Clear">
     </div>
     
 
@@ -69,7 +70,7 @@
     </div>
 
     <div class="from-group">
-        <input type="button" id="submit-assigned-projects" class="btn btn-success btn-lg" value="Save" />
+        <input type="button" id="submit-assigned-projects" class="btn btn-success btn-lg" value="Submit" />
     </div>    
 </form>
 
@@ -161,10 +162,7 @@
 
             // Datepicker
             $("#assign-date").datepicker({
-                showAnim: "drop",
-                showOn: "button",
-                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-                buttonImageOnly: true,
+                showAnim: "drop",                
                 showWeek: true,
                 changeMonth: true,
                 changeYear: true,
@@ -242,14 +240,20 @@
                 }
             });
 
+            // Clear UI controls
+            $("#clear-ui-controls").on('click', function () {
+                resetUiControls();
+                $.MessageBox("controls are cleared!");
+            });
+
             // Reset UI controls
             function resetUiControls() {
                 $("#ddlTeams").prop('selectedIndex', 0);
 
                 $("#ddlFrequencies").prop('selectedIndex', 0);
-
-                $("#ddlUsers").empty();
-                $("#ddlProjects").empty();
+                
+                $('#ddlUsers').find('option:first').attr('selected', 'selected');                
+                $('#ddlProjects').find('option:first').attr('selected', 'selected');
 
                 $("#assigned_hour").val('');
                 $("#assign-date").val('');

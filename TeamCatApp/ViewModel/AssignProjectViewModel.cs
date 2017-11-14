@@ -6,17 +6,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TeamCatApp.ViewModel {
     public class AssignProjectViewModel {
-        [Required(ErrorMessage = "This is required")]
+        [Required(ErrorMessage = "* Team selection is required")]
         public IEnumerable<Teams> Teams { get; set; }
 
         [Display(Name = "Employees")]
-        [Required(ErrorMessage = "This is required")]
+        [Required(ErrorMessage = "* Employee Selection is required")]
         public IEnumerable<ApplicationUser> Users { get; set; }
 
-        [Required(ErrorMessage = "This is required")]
+        [Required(ErrorMessage = "* Project Selection is required")]
         public IEnumerable<Projects> Projects { get; set; }
 
-        [Display(Name = "Project Frequency")]
+        [Display(Name = "* Select Project Frequency")]
         [Required(ErrorMessage = "This is required")]
         public IEnumerable<string> Frequencies { get; set; }
 
@@ -25,11 +25,11 @@ namespace TeamCatApp.ViewModel {
         public string ProjectName { get; set; }
 
         [Display(Name = "Date")]
-        [Required(ErrorMessage = "This is required")]
+        [Required(ErrorMessage = "* Select a date ")]
         public string AssignedDate { get; set; }
 
         [Display(Name = "Assign Hour")]
-        [Range(1, 8, ErrorMessage = "Please enter hours between 0 to 8")]
+        [Range(1, 8, ErrorMessage = "Please enter hours between [0 8]")]
         public int AssignedHour { get; set; }
 
         public string Frequency { get; set; }
