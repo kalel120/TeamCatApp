@@ -167,7 +167,7 @@
                 showWeek: true,
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "dd/mm/yy"
+                dateFormat: "dd-mm-yy"
             });
 
             // For rendering gridview/table
@@ -222,6 +222,7 @@
                     if ($rowCount === 1) {
                         $gridView.append($templateRow);
                         $.MessageBox("Record Inserted");
+                        return false;
                     }
                     else {
                         $("#assigned-projects-table tr:not(:first)").each(function () {
@@ -231,13 +232,11 @@
                                 $templateRow.empty();
                                 resetUiControls();
                                 return false;
-                            }
-                            else {
-                                $gridView.append($templateRow);
-                                $.MessageBox("Record Inserted");
-                            }
+                            }                          
                         });
                     }
+                    $gridView.append($templateRow);
+                    $.MessageBox("Record Inserted");
                 }
             });
 
@@ -281,13 +280,6 @@
 
             // Submitting assgined projects to controller
             $("#submit-assigned-projects").click(function () {
-                ////check if the form is valid or not
-                //let $form = $("#submit_form");
-                //if (!$form.valid()) {
-                //    $.MessageBox("Fill up the form first");
-                //    return false;
-                //}
-                //check if table is empty or not
                 let $tableBody = $("#assigned-projects-table tbody");
                 if ($tableBody.children().length === 0) {
                     $.MessageBox("Taks list is empty. Unable to save");
