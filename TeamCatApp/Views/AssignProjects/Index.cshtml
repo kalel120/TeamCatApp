@@ -51,7 +51,7 @@
         <input type="button" id="add-data-in-view" class="btn btn-primary btn-sm" value="Add">
         <input type="button" id="clear-ui-controls" class="btn btn-danger btn-sm" value="Clear">
     </div>
-    
+
 
     <div class="form-group">
         <table id="assigned-projects-table" class="table table-striped table-bordered from-control">
@@ -71,7 +71,7 @@
 
     <div class="from-group">
         <input type="button" id="submit-assigned-projects" class="btn btn-success btn-lg" value="Submit" />
-    </div>    
+    </div>
 </form>
 
 
@@ -101,6 +101,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/src/loadingoverlay.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@1.5.4/extras/loadingoverlay_progress/loadingoverlay_progress.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@2.2.1/src/messagebox.min.js"></script>
+    <script src="~/Scripts/jQuery-reset-validation.js"></script>
 
     <script>
         $(function () {
@@ -162,7 +163,7 @@
 
             // Datepicker
             $("#assign-date").datepicker({
-                showAnim: "drop",                
+                showAnim: "drop",
                 showWeek: true,
                 changeMonth: true,
                 changeYear: true,
@@ -236,12 +237,13 @@
                                 $.MessageBox("Record Inserted");
                             }
                         });
-                    }           
+                    }
                 }
             });
 
             // Clear UI controls
             $("#clear-ui-controls").on('click', function () {
+                $(this).resetValidation()
                 resetUiControls();
                 $.MessageBox("controls are cleared!");
             });
@@ -251,8 +253,8 @@
                 $("#ddlTeams").prop('selectedIndex', 0);
 
                 $("#ddlFrequencies").prop('selectedIndex', 0);
-                
-                $('#ddlUsers').find('option:first').attr('selected', 'selected');                
+
+                $('#ddlUsers').find('option:first').attr('selected', 'selected');
                 $('#ddlProjects').find('option:first').attr('selected', 'selected');
 
                 $("#assigned_hour").val('');
@@ -279,17 +281,16 @@
 
             // Submitting assgined projects to controller
             $("#submit-assigned-projects").click(function () {
-                //check if the form is valid or not
-                let $form = $("#submit_form");
-                if (!$form.valid()) {
-                    $.MessageBox("Fill up the form first");
-                    return false;
-                }
-
+                ////check if the form is valid or not
+                //let $form = $("#submit_form");
+                //if (!$form.valid()) {
+                //    $.MessageBox("Fill up the form first");
+                //    return false;
+                //}
                 //check if table is empty or not
                 let $tableBody = $("#assigned-projects-table tbody");
                 if ($tableBody.children().length === 0) {
-                    $.MessageBox("Taks list if empty. Unable to save");
+                    $.MessageBox("Taks list is empty. Unable to save");
                     return false;
                 }
 
@@ -320,13 +321,18 @@
                             return false;
                         }
                         else {
-                            $.MessageBox("Saved!!");
-                            window.location.href = $listOfTaskUrl;
+                            $.MessageBox({
+                                buttonDone: "Yes",
+                                buttonFail: "No",
+                                message: "Saved Successfully. Do you want to see all task list?"
+                            }).done(function () {
+                                window.location.href = $listOfTaskUrl;
+                            }).fail(function () {
+                            });
                         }
-
                     },
                     error: function () {
-                        $.MessageBox("Some Error Happend");
+                        $.MessageBox("Some Error Happend!");
                     }
                 });
             });
