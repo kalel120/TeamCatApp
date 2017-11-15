@@ -219,6 +219,7 @@
 
                     // check duplication
                     let $rowCount = $('#assigned-projects-table tr').length;
+                    var isDuplicate = false;
                     if ($rowCount === 1) {
                         $gridView.append($templateRow);
                         $.MessageBox("Record Inserted");
@@ -227,16 +228,21 @@
                     else {
                         $("#assigned-projects-table tr:not(:first)").each(function () {
                             let rowText = $(this).text();
-                            if (rowText === $templateRow.text()) {
-                                $.MessageBox("Duplicate Data");
+                            if (rowText === $templateRow.text()) {                                
                                 $templateRow.empty();
                                 resetUiControls();
+                                isDuplicate = true;
                                 return false;
                             }                          
                         });
                     }
-                    $gridView.append($templateRow);
-                    $.MessageBox("Record Inserted");
+                    if (isDuplicate) {
+                        $.MessageBox("Duplicate Data");
+                        return false;
+                    } else {
+                        $gridView.append($templateRow);
+                        $.MessageBox("Record Inserted");    
+                    }                    
                 }
             });
 
