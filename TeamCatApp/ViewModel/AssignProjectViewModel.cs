@@ -29,7 +29,7 @@ namespace TeamCatApp.ViewModel {
 
         [Display(Name = "Hour")]
         [Range(1, 8, ErrorMessage = "Enter hours between [0 - 8]")]
-        public int AssignedHour { get; set; }
+        public double AssignedHour { get; set; }
 
         public string Frequency { get; set; }
     }

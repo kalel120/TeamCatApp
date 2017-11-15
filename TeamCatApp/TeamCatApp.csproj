@@ -216,6 +216,10 @@
     <Compile Include="Migrations\201710291632223_FixTeamRelation.Designer.cs">
       <DependentUpon>201710291632223_FixTeamRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711150737153_Changed assigned hour type to double.cs" />
+    <Compile Include="Migrations\201711150737153_Changed assigned hour type to double.Designer.cs">
+      <DependentUpon>201711150737153_Changed assigned hour type to double.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -612,6 +616,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710291632223_FixTeamRelation.resx">
       <DependentUpon>201710291632223_FixTeamRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711150737153_Changed assigned hour type to double.resx">
+      <DependentUpon>201711150737153_Changed assigned hour type to double.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

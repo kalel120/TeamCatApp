@@ -17,6 +17,6 @@ namespace TeamCatApp.Models {
         public int ProjectId { get; set; }
 
         public DateTime AssignedDate { get; set; }
-        public int AssignedHour { get; set; }
+        public double AssignedHour { get; set; }
     }
 }
